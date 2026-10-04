@@ -17,8 +17,21 @@
     <button class="btn ghost" id="importBtn">Importar</button>
     <input type="file" id="importFile" accept="application/json" hidden>
     <button class="btn primary" id="newBtn">+ Nova ideia</button>
+    <button class="btn ghost" id="logoutBtn" title="Sair deste aparelho">Sair</button>
   </div>
 </header>
+
+<div id="login" class="login" hidden>
+  <form id="loginForm" class="login-card" autocomplete="off">
+    <div class="logo">P</div>
+    <h2>Painel <span>Pupuy</span></h2>
+    <p class="muted">Digite a senha para entrar</p>
+    <input type="password" id="pwd" placeholder="Senha" autocomplete="current-password" required>
+    <p class="login-err" id="loginErr" role="alert"></p>
+    <label class="check"><input type="checkbox" id="remember" checked> Lembrar neste aparelho</label>
+    <button class="btn primary" type="submit">Entrar</button>
+  </form>
+</div>
 
 <main>
   <section class="stats" id="stats"></section>

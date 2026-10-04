@@ -1,9 +1,12 @@
 ﻿# Servidor local simples (sem Node/Python). Uso: .\serve.ps1  ->  http://localhost:8080  | salva os dados em data.json e backups\
 $port = 8080
 $root = $PSScriptRoot
+# senha: variavel PAINEL_SENHA ou arquivo senha.txt (nao vai pro GitHub)
+$senha = $env:PAINEL_SENHA
+if (-not $senha -and (Test-Path (Join-Path $root 'senha.txt'))) { $senha = (Get-Content (Join-Path $root 'senha.txt') -Raw).Trim() }
 $dataFile = Join-Path $root 'data.json'
 $backupDir = Join-Path $root 'backups'
-$types = @{ '.html'='text/html; charset=utf-8'; '.css'='text/css; charset=utf-8'; '.js'='text/javascript; charset=utf-8'; '.json'='application/json'; '.svg'='image/svg+xml'; '.png'='image/png'; '.ico'='image/x-icon' }
+$types = @{ '.html'='text/html; charset=utf-8'; '.css'='text/css; charset=utf-8'; '.js'='text/javascript; charset=utf-8'; '.svg'='image/svg+xml'; '.png'='image/png'; '.ico'='image/x-icon' }
 $l = [System.Net.HttpListener]::new()
 $l.Prefixes.Add("http://localhost:$port/")
 $l.Start()
@@ -14,6 +17,9 @@ try {
     $path = [Uri]::UnescapeDataString($ctx.Request.Url.AbsolutePath.TrimStart('/'))
     if (-not $path) { $path = 'index.html' }
     if ($path -eq 'api/data') {
+      if ($senha -and $ctx.Request.Headers['x-painel-senha'] -ne $senha) {
+        $ctx.Response.StatusCode = 401; $ctx.Response.Close(); continue
+      }
       if ($ctx.Request.HttpMethod -eq 'POST') {
         $body = [IO.StreamReader]::new($ctx.Request.InputStream, [Text.Encoding]::UTF8).ReadToEnd()
         try {
@@ -31,7 +37,7 @@ try {
       $ctx.Response.Close(); continue
     }
     $file = [IO.Path]::GetFullPath((Join-Path $root $path))
-    if ($file.StartsWith($root) -and (Test-Path $file -PathType Leaf)) {
+    if ($file.StartsWith($root) -and $types.ContainsKey([IO.Path]::GetExtension($file).ToLower()) -and (Test-Path $file -PathType Leaf)) {
       $bytes = [IO.File]::ReadAllBytes($file)
       $ext = [IO.Path]::GetExtension($file).ToLower()
       $ctx.Response.ContentType = if ($types[$ext]) { $types[$ext] } else { 'application/octet-stream' }

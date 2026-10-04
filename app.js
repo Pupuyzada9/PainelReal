@@ -72,18 +72,44 @@ function setState(t) { $('saveState').textContent = '· ' + t; }
 /* Servidor: localhost (serve.ps1 → data.json) ou Vercel (api/data.js → banco, com senha). */
 const KEY_PWD = 'painelpupuy.senha';
 let syncBlocked = false;   // true se não deu pra ler o servidor: evita sobrescrever dados com uma cópia vazia
+const getPwd = () => { try { return localStorage.getItem(KEY_PWD) || sessionStorage.getItem(KEY_PWD) || ''; } catch { return ''; } };
+function setPwd(p, remember) {
+  try {
+    localStorage.removeItem(KEY_PWD); sessionStorage.removeItem(KEY_PWD);
+    (remember ? localStorage : sessionStorage).setItem(KEY_PWD, p);
+  } catch {}
+}
+const rawFetch = (method, body) => fetch('/api/data', {
+  method, body, cache: 'no-store',
+  headers: { 'Content-Type': 'application/json', 'x-painel-senha': getPwd() },
+});
+
+// tela de login: aparece quando o servidor responde 401 (senha ausente ou errada)
+let loginPromise = null, loginDone = null;
+function askLogin(erro) {
+  $('loginErr').textContent = erro || '';
+  $('login').hidden = false;
+  $('pwd').value = ''; $('pwd').focus();
+  if (!loginPromise) loginPromise = new Promise((res) => { loginDone = () => { loginPromise = null; res(); }; });
+  return loginPromise;
+}
+$('loginForm').onsubmit = (e) => {
+  e.preventDefault();
+  if (!$('pwd').value) return;
+  setPwd($('pwd').value, $('remember').checked);
+  $('login').hidden = true;
+  loginDone();
+};
+$('logoutBtn').onclick = () => {
+  try { localStorage.removeItem(KEY_PWD); sessionStorage.removeItem(KEY_PWD); } catch {}
+  location.reload();
+};
+
 async function api(method, body) {
-  let r;
-  for (let tentativa = 0; tentativa < 3; tentativa++) {
-    let senha = ''; try { senha = localStorage.getItem(KEY_PWD) || ''; } catch {}
-    r = await fetch('/api/data', {
-      method, body, cache: 'no-store',
-      headers: { 'Content-Type': 'application/json', 'x-painel-senha': senha },
-    });
-    if (r.status !== 401) return r;
-    const nova = prompt(tentativa ? 'Senha incorreta. Tente de novo:' : 'Senha do painel:');
-    if (nova === null) break;
-    try { localStorage.setItem(KEY_PWD, nova); } catch {}
+  let r = await rawFetch(method, body);
+  for (let n = 0; r.status === 401; n++) {
+    await askLogin(n || getPwd() ? 'Senha incorreta.' : '');
+    r = await rawFetch(method, body);
   }
   return r;
 }
