@@ -121,7 +121,12 @@ async function init() {
     if (r.ok) { applyData(await r.json()); loaded = true; }
     else if (r.status !== 404) syncBlocked = true;
   } catch { syncBlocked = true; }
-  if (syncBlocked) setState('não consegui ler o servidor (recarregue ou verifique a senha)');
+  if (syncBlocked) {
+    // não mostra o painel “aberto” sem o servidor: bloqueia a tela e explica
+    $('fatalMsg').textContent = 'O servidor não respondeu direito (ou não está configurado). Verifique a senha e o banco de dados na Vercel e tente de novo.';
+    $('fatal').hidden = false;
+    return;
+  }
   if (loaded && !items.length) loaded = false;   // arquivo vazio: tenta recuperar do navegador
   if (!loaded) {
     try {

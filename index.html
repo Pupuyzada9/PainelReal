@@ -21,6 +21,15 @@
   </div>
 </header>
 
+<div id="fatal" class="login" hidden>
+  <div class="login-card">
+    <div class="logo">!</div>
+    <h2>Sem conexão com o servidor</h2>
+    <p class="muted" id="fatalMsg"></p>
+    <button class="btn primary" onclick="location.reload()">Tentar de novo</button>
+  </div>
+</div>
+
 <div id="login" class="login" hidden>
   <form id="loginForm" class="login-card" autocomplete="off">
     <div class="logo">P</div>
