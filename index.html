@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Painel Pupuy</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div>
+    <h1>Painel <span>Pupuy</span></h1>
+    <p class="sub">Registro das minhas tentativas de ganhar dinheiro no digital <em id="saveState" class="savestate"></em></p>
+  </div>
+  <div class="actions">
+    <button class="btn ghost" id="exportBtn">Exportar</button>
+    <button class="btn ghost" id="importBtn">Importar</button>
+    <input type="file" id="importFile" accept="application/json" hidden>
+    <button class="btn primary" id="newBtn">+ Nova ideia</button>
+  </div>
+</header>
+
+<main>
+  <section class="stats" id="stats"></section>
+
+  <section class="overview">
+    <div class="panel">
+      <div class="panel-head"><h3>Resultado por mês</h3><small>últimos 6 meses</small></div>
+      <div id="chart"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h3>Meta do mês</h3><small id="goalMonth"></small></div>
+      <div id="goal"></div>
+    </div>
+  </section>
+
+  <section class="toolbar">
+    <input type="search" id="search" placeholder="Buscar por título, tag, nota ou diário...">
+    <select id="sort" title="Ordenar">
+      <option value="recent">Mais recentes</option>
+      <option value="profit">Maior resultado</option>
+      <option value="roi">Maior ROI</option>
+      <option value="title">Título (A–Z)</option>
+      <option value="status">Status</option>
+    </select>
+    <div class="seg" id="viewSeg">
+      <button data-v="grid" class="on">Grade</button>
+      <button data-v="kanban">Kanban</button>
+    </div>
+    <label class="check"><input type="checkbox" id="showArchived"> Arquivadas</label>
+  </section>
+  <div class="chips" id="filters"></div>
+
+  <section id="board"></section>
+  <p class="empty" id="empty" hidden></p>
+</main>
+
+<dialog id="dlg">
+  <div class="dlg-body">
+    <h2 id="dlgTitle">Nova ideia</h2>
+
+    <label>Título
+      <input id="fTitle" maxlength="80" placeholder="Ex.: Vender templates no Notion">
+    </label>
+    <label>Descrição da ideia
+      <textarea id="fDesc" rows="2" placeholder="Em uma ou duas frases, o que é a ideia?"></textarea>
+    </label>
+    <div class="row">
+      <label>Status <select id="fStatus"></select></label>
+      <label>Tags (separadas por vírgula) <input id="fTags" placeholder="afiliados, youtube"></label>
+    </div>
+
+    <h4>Diário</h4>
+    <div id="entries" class="list"></div>
+    <div class="add">
+      <input type="date" id="eDate" class="w-date">
+      <input id="eText" placeholder="O que aconteceu hoje?">
+      <button type="button" class="btn" id="eAdd">Adicionar</button>
+    </div>
+
+    <h4>Financeiro</h4>
+    <div id="txs" class="list"></div>
+    <div class="add">
+      <select id="tType" class="w-type"><option value="gasto">Gasto</option><option value="ganho">Ganho</option></select>
+      <input type="number" id="tValue" step="0.01" min="0" placeholder="R$" class="w-val">
+      <input type="date" id="tDate" class="w-date">
+      <input id="tNote" placeholder="Descrição (opcional)">
+      <button type="button" class="btn" id="tAdd">Adicionar</button>
+    </div>
+
+    <div class="row">
+      <label>O que aprendi <textarea id="fLearned" rows="3" placeholder="Lições desta tentativa..."></textarea></label>
+      <label>Próxima ação <textarea id="fNext" rows="3" placeholder="Qual o próximo passo concreto?"></textarea></label>
+    </div>
+
+    <h4>Links e anexos</h4>
+    <div id="links" class="list"></div>
+    <div class="add">
+      <input id="lLabel" placeholder="Nome (ex.: Vídeo, Loja)" class="w-val2">
+      <input id="lUrl" placeholder="https://...">
+      <button type="button" class="btn" id="lAdd">Adicionar</button>
+    </div>
+
+    <div class="dlg-actions">
+      <button type="button" class="btn danger" id="delBtn">Excluir</button>
+      <button type="button" class="btn ghost" id="archBtn">Arquivar</button>
+      <span class="spacer"></span>
+      <button type="button" class="btn ghost" id="cancelBtn">Cancelar</button>
+      <button type="button" class="btn primary" id="saveBtn">Salvar</button>
+    </div>
+  </div>
+</dialog>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,509 @@
+{
+    "version":  2,
+    "items":  [
+                  {
+                      "id":  "2d64a606-1976-40cf-a65c-10e2a01b25d7",
+                      "title":  "Templates de Notion para freelancers",
+                      "desc":  "Criar e vender planners e CRMs no Notion em marketplaces.",
+                      "status":  "validada",
+                      "tags":  [
+                                   "produto digital",
+                                   "notion"
+                               ],
+                      "links":  [
+                                    {
+                                        "id":  "e9525c25-e079-43db-9188-c35820dc6566",
+                                        "label":  "Loja",
+                                        "url":  "https://gumroad.com"
+                                    },
+                                    {
+                                        "id":  "39723391-827b-449f-8893-9641d37e1027",
+                                        "label":  "Perfil no X",
+                                        "url":  "https://x.com"
+                                    }
+                                ],
+                      "entries":  [
+                                      {
+                                          "id":  "1bbd00be-8c21-422c-b426-9a7e3c2fe438",
+                                          "date":  "2026-07-20",
+                                          "text":  "Criei o primeiro template (CRM simples)."
+                                      },
+                                      {
+                                          "id":  "95ecc80e-c253-40c6-97d0-0d77ee440bbe",
+                                          "date":  "2026-08-04",
+                                          "text":  "Publiquei na Gumroad e postei no X."
+                                      },
+                                      {
+                                          "id":  "ee55cb97-c5eb-45e5-9378-192a52699951",
+                                          "date":  "2026-08-24",
+                                          "text":  "Primeiras 3 vendas, todas via Twitter."
+                                      },
+                                      {
+                                          "id":  "14021d44-4eb4-426b-8c7d-3ebf7405f883",
+                                          "date":  "2026-09-21",
+                                          "text":  "Lancei bundle com 3 templates."
+                                      }
+                                  ],
+                      "txs":  [
+                                  {
+                                      "id":  "90421f0b-460c-4945-ba6f-fd03c6460438",
+                                      "type":  "gasto",
+                                      "value":  49,
+                                      "date":  "2026-07-20",
+                                      "note":  "Domínio e conta de design"
+                                  },
+                                  {
+                                      "id":  "4fc4cd6a-1680-4445-acd3-e6947eeda26b",
+                                      "type":  "ganho",
+                                      "value":  87,
+                                      "date":  "2026-08-24",
+                                      "note":  "3 vendas"
+                                  },
+                                  {
+                                      "id":  "a64679fd-c8ad-495a-9769-48d24c587522",
+                                      "type":  "ganho",
+                                      "value":  210,
+                                      "date":  "2026-09-21",
+                                      "note":  "Vendas do bundle"
+                                  }
+                              ],
+                      "learned":  "Nichar vende mais que template genérico; capas boas aumentam clique.",
+                      "next":  "Criar versão para designers e subir bundle com desconto.",
+                      "archived":  false,
+                      "created":  1791079180975,
+                      "updated":  1791079180975
+                  },
+                  {
+                      "id":  "d030dd3e-aa6b-463e-8536-10c3a20004f7",
+                      "title":  "Canal de dicas de finanças no YouTube",
+                      "desc":  "Vídeos curtos explicando finanças pessoais para iniciantes.",
+                      "status":  "teste",
+                      "tags":  [
+                                   "youtube",
+                                   "conteúdo"
+                               ],
+                      "links":  [
+                                    {
+                                        "id":  "8d1fa931-06c3-409d-9f85-056879795aef",
+                                        "label":  "Canal",
+                                        "url":  "https://youtube.com"
+                                    }
+                                ],
+                      "entries":  [
+                                      {
+                                          "id":  "9bdeb159-f85c-467c-b91a-125451bfafd5",
+                                          "date":  "2026-08-14",
+                                          "text":  "Gravei e publiquei o vídeo 1."
+                                      },
+                                      {
+                                          "id":  "832c724b-0821-4d6e-bb63-8483025d1be1",
+                                          "date":  "2026-08-29",
+                                          "text":  "5 vídeos no ar, 120 inscritos."
+                                      },
+                                      {
+                                          "id":  "e81df5cb-bfda-4b7f-8773-ade4f44e34de",
+                                          "date":  "2026-09-25",
+                                          "text":  "Um vídeo passou de 4 mil views."
+                                      }
+                                  ],
+                      "txs":  [
+                                  {
+                                      "id":  "e4ad7635-adb7-425b-a77d-be568ab1e455",
+                                      "type":  "gasto",
+                                      "value":  180,
+                                      "date":  "2026-08-14",
+                                      "note":  "Microfone"
+                                  },
+                                  {
+                                      "id":  "d30bff50-6dd9-445a-9b8c-ca94725de5ca",
+                                      "type":  "gasto",
+                                      "value":  60,
+                                      "date":  "2026-09-03",
+                                      "note":  "Edição terceirizada"
+                                  },
+                                  {
+                                      "id":  "a13aecf5-9194-4e5e-a590-112a224b3f0c",
+                                      "type":  "ganho",
+                                      "value":  32,
+                                      "date":  "2026-09-28",
+                                      "note":  "Primeiro AdSense"
+                                  }
+                              ],
+                      "learned":  "Retenção cai depois dos 30s: gancho inicial precisa melhorar.",
+                      "next":  "Postar 3 vídeos por semana por 1 mês e medir.",
+                      "archived":  false,
+                      "created":  1791079179975,
+                      "updated":  1791079179975
+                  },
+                  {
+                      "id":  "6e1a6ebd-8b20-466d-bc05-a3e9a6201fce",
+                      "title":  "Afiliados de hospedagem de sites",
+                      "desc":  "Divulgar links de afiliado em blog e vídeos de tutorial.",
+                      "status":  "teste",
+                      "tags":  [
+                                   "afiliados",
+                                   "blog"
+                               ],
+                      "links":  [
+                                    {
+                                        "id":  "5200e9c6-7dcc-4983-9f5b-5177127af8fb",
+                                        "label":  "Blog",
+                                        "url":  "https://example.com"
+                                    }
+                                ],
+                      "entries":  [
+                                      {
+                                          "id":  "b384cbb7-c8a1-4832-9eb6-297870833baf",
+                                          "date":  "2026-08-19",
+                                          "text":  "Entrei no programa de afiliados."
+                                      },
+                                      {
+                                          "id":  "64086905-b91a-4d33-ac31-fc5924719478",
+                                          "date":  "2026-09-13",
+                                          "text":  "Escrevi 2 posts; 0 conversões ainda."
+                                      }
+                                  ],
+                      "txs":  [
+                                  {
+                                      "id":  "d70c87c1-0536-44f8-a171-9d5245d66378",
+                                      "type":  "gasto",
+                                      "value":  120,
+                                      "date":  "2026-08-19",
+                                      "note":  "Hospedagem do blog"
+                                  },
+                                  {
+                                      "id":  "8f709baa-438e-4b65-a911-2275c40f1efe",
+                                      "type":  "ganho",
+                                      "value":  95,
+                                      "date":  "2026-09-27",
+                                      "note":  "Primeira comissão"
+                                  }
+                              ],
+                      "learned":  "Tutoriais passo a passo convertem mais que listas de comparação.",
+                      "next":  "Escrever 5 tutoriais otimizados para SEO.",
+                      "archived":  false,
+                      "created":  1791079178975,
+                      "updated":  1791079178975
+                  },
+                  {
+                      "id":  "35388109-98e3-40f4-90bf-fb536f2bbe55",
+                      "title":  "Dropshipping de acessórios para pets",
+                      "desc":  "Loja virtual com produtos importados, anúncios no Instagram.",
+                      "status":  "descartada",
+                      "tags":  [
+                                   "ecommerce",
+                                   "anúncios"
+                               ],
+                      "links":  [],
+                      "entries":  [
+                                      {
+                                          "id":  "c2a347fe-fc67-4291-801b-01c7a3e1a003",
+                                          "date":  "2026-07-05",
+                                          "text":  "Montei a loja com 10 produtos."
+                                      },
+                                      {
+                                          "id":  "dcbde08d-2103-4ebd-89dc-a3b9374a173d",
+                                          "date":  "2026-07-15",
+                                          "text":  "Rodei R$ 300 em anúncios, 2 vendas."
+                                      },
+                                      {
+                                          "id":  "f35bfe88-3870-4bbb-9dc6-e9cc5bce7902",
+                                          "date":  "2026-07-25",
+                                          "text":  "Cancelei: prejuízo e atendimento demorado."
+                                      }
+                                  ],
+                      "txs":  [
+                                  {
+                                      "id":  "bee14173-5058-461b-a053-17d76f4bea9b",
+                                      "type":  "gasto",
+                                      "value":  300,
+                                      "date":  "2026-07-15",
+                                      "note":  "Anúncios"
+                                  },
+                                  {
+                                      "id":  "cbff615e-d46c-4378-9b2f-f0b59782da06",
+                                      "type":  "gasto",
+                                      "value":  89,
+                                      "date":  "2026-07-05",
+                                      "note":  "Plataforma da loja"
+                                  },
+                                  {
+                                      "id":  "d8aa65d1-bf37-4958-af3f-455add5622b9",
+                                      "type":  "ganho",
+                                      "value":  140,
+                                      "date":  "2026-07-20",
+                                      "note":  "2 vendas"
+                                  }
+                              ],
+                      "learned":  "Margem muito apertada com frete e anúncios; sem diferencial.",
+                      "next":  "",
+                      "archived":  false,
+                      "created":  1791079177975,
+                      "updated":  1791079177975
+                  },
+                  {
+                      "id":  "fd95a744-ee86-4a34-a216-f0971c1dd890",
+                      "title":  "Newsletter semanal de IA",
+                      "desc":  "Resumo semanal de novidades de IA com patrocínios.",
+                      "status":  "ideia",
+                      "tags":  [
+                                   "newsletter",
+                                   "ia"
+                               ],
+                      "links":  [],
+                      "entries":  [
+                                      {
+                                          "id":  "8b5b8ed8-74f9-40c7-8a08-f3751bc9b39c",
+                                          "date":  "2026-09-30",
+                                          "text":  {
+
+                                                   }
+                                      },
+                                      {
+                                          "id":  "244ca8a8-c1b3-4d6b-8f60-943ce32f9ea8",
+                                          "date":  "2026-07-27",
+                                          "text":  "e"
+                                      }
+                                  ],
+                      "txs":  [],
+                      "learned":  "",
+                      "next":  "Validar interesse com uma landing page e lista de espera.",
+                      "archived":  false,
+                      "created":  1791079176975,
+                      "updated":  1791079176975
+                  },
+                  {
+                      "id":  "d8edc3ef-b3cf-4eb5-82e5-01312d5ee746",
+                      "title":  "Serviço de edição de vídeo para criadores",
+                      "desc":  "Oferecer edição de vídeos curtos como freelancer.",
+                      "status":  "validada",
+                      "tags":  [
+                                   "serviço",
+                                   "freelancer"
+                               ],
+                      "links":  [
+                                    {
+                                        "id":  "3eddf406-dabd-4331-9fe6-94f3cc73f93b",
+                                        "label":  "Portfólio",
+                                        "url":  "https://example.com/portfolio"
+                                    }
+                                ],
+                      "entries":  [
+                                      {
+                                          "id":  "1e3678fe-0c3f-4af0-a60e-4fcfbbce1b5a",
+                                          "date":  "2026-08-09",
+                                          "text":  "Fiz portfólio com 5 vídeos."
+                                      },
+                                      {
+                                          "id":  "5050fd02-4ea9-4caa-a74d-7d9435f2492a",
+                                          "date":  "2026-09-03",
+                                          "text":  "Primeiro cliente via indicação."
+                                      },
+                                      {
+                                          "id":  "ea0b9228-731e-41e6-97a2-f7ec1f079e4a",
+                                          "date":  "2026-09-23",
+                                          "text":  "Fechei pacote mensal com 1 cliente."
+                                      }
+                                  ],
+                      "txs":  [
+                                  {
+                                      "id":  "7a6e3be0-3e7b-41b9-9ca4-b6471f69420e",
+                                      "type":  "gasto",
+                                      "value":  0,
+                                      "date":  "2026-08-09",
+                                      "note":  "Sem custo"
+                                  },
+                                  {
+                                      "id":  "55134833-eab7-42fb-bf90-2eca210a4df4",
+                                      "type":  "ganho",
+                                      "value":  300,
+                                      "date":  "2026-09-03",
+                                      "note":  "Job avulso"
+                                  },
+                                  {
+                                      "id":  "0d826491-9651-4db9-9187-4d792a25f1b6",
+                                      "type":  "ganho",
+                                      "value":  500,
+                                      "date":  "2026-09-23",
+                                      "note":  "Pacote mensal"
+                                  }
+                              ],
+                      "learned":  "Pacotes mensais fixos dão mais previsibilidade que jobs avulsos.",
+                      "next":  "Fechar 2 clientes recorrentes.",
+                      "archived":  false,
+                      "created":  1791079175975,
+                      "updated":  1791079175975
+                  },
+                  {
+                      "id":  "220c00ef-2021-46dc-8edb-119c7ebf45c3",
+                      "title":  "Curso online de Excel básico",
+                      "desc":  "Gravar curso curto e vender em plataforma de cursos.",
+                      "status":  "teste",
+                      "tags":  [
+                                   "infoproduto",
+                                   "curso"
+                               ],
+                      "links":  [
+                                    {
+                                        "id":  "623cf5f2-ed8f-435c-a1c2-b69374e4871b",
+                                        "label":  "Página do curso",
+                                        "url":  "https://hotmart.com"
+                                    }
+                                ],
+                      "entries":  [
+                                      {
+                                          "id":  "c207c43a-82bd-4090-83da-fc449f533b9d",
+                                          "date":  "2026-09-08",
+                                          "text":  "Gravei 8 aulas."
+                                      },
+                                      {
+                                          "id":  "01444fa3-39d0-44d7-8ecf-630fa8f5c888",
+                                          "date":  "2026-09-19",
+                                          "text":  "Publiquei na Hotmart."
+                                      },
+                                      {
+                                          "id":  "a92bd330-1688-4e94-a830-1daa1e757618",
+                                          "date":  "2026-09-28",
+                                          "text":  "1 venda para um amigo."
+                                      }
+                                  ],
+                      "txs":  [
+                                  {
+                                      "id":  "6f6f6533-e6d8-4261-8132-6abf6786e762",
+                                      "type":  "gasto",
+                                      "value":  97,
+                                      "date":  "2026-09-08",
+                                      "note":  "Software de gravação"
+                                  },
+                                  {
+                                      "id":  "99c2bc38-341d-4660-b21a-5c35bf72b25e",
+                                      "type":  "gasto",
+                                      "value":  150,
+                                      "date":  "2026-09-19",
+                                      "note":  "Impulsionar post"
+                                  },
+                                  {
+                                      "id":  "ae74ba22-fba0-4e92-adfa-5aaa1f7c64ad",
+                                      "type":  "ganho",
+                                      "value":  97,
+                                      "date":  "2026-09-28",
+                                      "note":  "1 venda"
+                                  }
+                              ],
+                      "learned":  "Gravar é fácil; divulgar é o que consome tempo.",
+                      "next":  "Fazer lançamento com 7 dias de divulgação.",
+                      "archived":  false,
+                      "created":  1791079174975,
+                      "updated":  1791079174975
+                  },
+                  {
+                      "id":  "33088ace-87fb-44e5-be1f-1683407f6103",
+                      "title":  "Pacote de presets de foto para Lightroom",
+                      "desc":  "Vender presets para fotógrafos iniciantes.",
+                      "status":  "ideia",
+                      "tags":  [
+                                   "produto digital",
+                                   "foto"
+                               ],
+                      "links":  [],
+                      "entries":  [],
+                      "txs":  [],
+                      "learned":  "",
+                      "next":  "Pesquisar concorrentes e faixas de preço.",
+                      "archived":  false,
+                      "created":  1791079173975,
+                      "updated":  1791079173975
+                  },
+                  {
+                      "id":  "e9644857-a599-455b-bc29-2de91991430e",
+                      "title":  "Blog de reviews de gadgets",
+                      "desc":  "Blog com reviews e links de afiliado Amazon.",
+                      "status":  "descartada",
+                      "tags":  [
+                                   "blog",
+                                   "afiliados"
+                               ],
+                      "links":  [],
+                      "entries":  [
+                                      {
+                                          "id":  "1df13295-f2ef-47e9-adf0-1eee7d51253b",
+                                          "date":  "2026-06-05",
+                                          "text":  "Publiquei 6 reviews."
+                                      },
+                                      {
+                                          "id":  "ae5eb63a-89af-4039-b288-65882453937a",
+                                          "date":  "2026-06-25",
+                                          "text":  "Tráfego de 40 visitas por mês; parei."
+                                      }
+                                  ],
+                      "txs":  [
+                                  {
+                                      "id":  "61a23154-fe5a-401d-b386-8d0858a6b8ea",
+                                      "type":  "gasto",
+                                      "value":  200,
+                                      "date":  "2026-06-05",
+                                      "note":  "Tema e domínio"
+                                  },
+                                  {
+                                      "id":  "2b134934-6e3a-4733-8f61-8e77ab4624db",
+                                      "type":  "ganho",
+                                      "value":  18,
+                                      "date":  "2026-06-30",
+                                      "note":  "Única comissão"
+                                  }
+                              ],
+                      "learned":  "Nicho saturado; tráfego orgânico demora demais.",
+                      "next":  "",
+                      "archived":  true,
+                      "created":  1791079172975,
+                      "updated":  1791079172975
+                  },
+                  {
+                      "id":  "0d8025cb-2f9e-40de-b01c-29a639fe0c5c",
+                      "title":  "Automação de planilhas para pequenas empresas",
+                      "desc":  "Criar planilhas e scripts sob medida para pequenos negócios.",
+                      "status":  "teste",
+                      "tags":  [
+                                   "serviço",
+                                   "automação"
+                               ],
+                      "links":  [],
+                      "entries":  [
+                                      {
+                                          "id":  "484e6ced-4384-4f5c-a40d-90d76776241b",
+                                          "date":  "2026-09-13",
+                                          "text":  "Fiz 3 propostas via WhatsApp."
+                                      },
+                                      {
+                                          "id":  "b73e757e-073a-4b77-8f2f-d6b9e3f51e36",
+                                          "date":  "2026-09-24",
+                                          "text":  "Um mercadinho aceitou testar."
+                                      }
+                                  ],
+                      "txs":  [
+                                  {
+                                      "id":  "96e6b29b-d0b6-4976-b3f7-7ce0c7959318",
+                                      "type":  "gasto",
+                                      "value":  30,
+                                      "date":  "2026-09-13",
+                                      "note":  "Cartões de visita"
+                                  },
+                                  {
+                                      "id":  "e44ec781-3efa-4756-937e-ead964950581",
+                                      "type":  "ganho",
+                                      "value":  250,
+                                      "date":  "2026-09-26",
+                                      "note":  "Primeiro projeto"
+                                  }
+                              ],
+                      "learned":  "Clientes locais preferem WhatsApp a e-mail; cobrar por entrega.",
+                      "next":  "Visitar 10 comércios locais com proposta pronta.",
+                      "archived":  false,
+                      "created":  1791079171975,
+                      "updated":  1791079171975
+                  }
+              ],
+    "settings":  {
+                     "goal":  1000
+                 }
+}
