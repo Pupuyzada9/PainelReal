@@ -60,20 +60,42 @@ function save() {
   clearTimeout(saveTimer);
   setState('salvando…');
   saveTimer = setTimeout(async () => {
+    if (syncBlocked) return setState('sem conexão com o servidor: salvo só neste navegador');
     try {
-      const r = await fetch('/api/data', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: json });
-      setState(r.ok ? 'salvo em arquivo ✓' : 'salvo só no navegador');
-    } catch { setState('salvo só no navegador'); }
+      const r = await api('POST', json);
+      setState(r.ok ? 'salvo ✓' : 'erro ao salvar: salvo só neste navegador');
+    } catch { setState('sem conexão: salvo só neste navegador'); }
   }, 300);
 }
 function setState(t) { $('saveState').textContent = '· ' + t; }
 
+/* Servidor: localhost (serve.ps1 → data.json) ou Vercel (api/data.js → banco, com senha). */
+const KEY_PWD = 'painelpupuy.senha';
+let syncBlocked = false;   // true se não deu pra ler o servidor: evita sobrescrever dados com uma cópia vazia
+async function api(method, body) {
+  let r;
+  for (let tentativa = 0; tentativa < 3; tentativa++) {
+    let senha = ''; try { senha = localStorage.getItem(KEY_PWD) || ''; } catch {}
+    r = await fetch('/api/data', {
+      method, body, cache: 'no-store',
+      headers: { 'Content-Type': 'application/json', 'x-painel-senha': senha },
+    });
+    if (r.status !== 401) return r;
+    const nova = prompt(tentativa ? 'Senha incorreta. Tente de novo:' : 'Senha do painel:');
+    if (nova === null) break;
+    try { localStorage.setItem(KEY_PWD, nova); } catch {}
+  }
+  return r;
+}
+
 async function init() {
   let loaded = false;
   try {
-    const r = await fetch('/api/data', { cache: 'no-store' });
+    const r = await api('GET');
     if (r.ok) { applyData(await r.json()); loaded = true; }
-  } catch {}
+    else if (r.status !== 404) syncBlocked = true;
+  } catch { syncBlocked = true; }
+  if (syncBlocked) setState('não consegui ler o servidor (recarregue ou verifique a senha)');
   if (loaded && !items.length) loaded = false;   // arquivo vazio: tenta recuperar do navegador
   if (!loaded) {
     try {
@@ -374,5 +396,16 @@ $('importFile').onchange = async (e) => {
   } catch { alert('Arquivo inválido.'); }
   e.target.value = '';
 };
+
+// ao voltar para a aba, puxa alterações feitas em outro aparelho
+document.addEventListener('visibilitychange', async () => {
+  if (document.visibilityState !== 'visible' || dlg.open || syncBlocked) return;
+  try {
+    const r = await api('GET');
+    if (!r.ok) return;
+    const remote = await r.json();
+    if (JSON.stringify(remote) !== JSON.stringify(snapshot()) && !dlg.open) { applyData(remote); render(); }
+  } catch {}
+});
 
 init();
