@@ -21,6 +21,15 @@
   </div>
 </header>
 
+<dialog id="tagsDlg">
+  <div class="dlg-body">
+    <h2>Gerenciar tags</h2>
+    <p class="muted small">Renomear muda a tag em todas as ideias. Renomear para o nome de outra tag une as duas. Acentos e maiúsculas não criam tags diferentes.</p>
+    <div id="tagList" class="list"></div>
+    <div class="dlg-actions"><span class="spacer"></span><button type="button" class="btn primary" id="tagsClose">Fechar</button></div>
+  </div>
+</dialog>
+
 <div id="fatal" class="login" hidden>
   <div class="login-card">
     <div class="logo">!</div>
@@ -70,8 +79,10 @@
       <button data-v="kanban">Kanban</button>
     </div>
     <label class="check"><input type="checkbox" id="showArchived"> Arquivadas</label>
+    <button class="btn ghost" id="tagsBtn">Gerenciar tags</button>
   </section>
   <div class="chips" id="filters"></div>
+  <div class="chips tagfilters" id="tagFilters" hidden></div>
 
   <section id="board"></section>
   <p class="empty" id="empty" hidden></p>
@@ -87,9 +98,13 @@
     <label>Descrição da ideia
       <textarea id="fDesc" rows="2" placeholder="Em uma ou duas frases, o que é a ideia?"></textarea>
     </label>
-    <div class="row">
-      <label>Status <select id="fStatus"></select></label>
-      <label>Tags (separadas por vírgula) <input id="fTags" placeholder="afiliados, youtube"></label>
+    <label>Status <select id="fStatus"></select></label>
+
+    <div class="tagbox" id="tagBox">
+      <span class="lbl">Tags</span>
+      <div id="tagSel" class="tags"></div>
+      <input id="tagIn" maxlength="40" autocomplete="off" placeholder="Digite para buscar ou criar uma tag e aperte Enter">
+      <div id="tagSug" class="chips"></div>
     </div>
 
     <h4>Diário</h4>

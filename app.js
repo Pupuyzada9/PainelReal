@@ -7,6 +7,7 @@ let items = [];
 let settings = { goal: 0 };
 let filter = 'todas';
 let query = '';
+let tagFilter = new Set();   // tags selecionadas no filtro (a ideia precisa ter todas)
 let sortBy = 'recent';
 let view = 'grid';
 let showArchived = false;
@@ -50,6 +51,27 @@ function migrateV1(old) {
 function applyData(d) {
   items = (d.items || []).map(normalize);
   settings = { goal: 0, ...(d.settings || {}) };
+  settings.tags = Array.isArray(settings.tags) ? settings.tags : [];
+  reconcileTags();
+}
+
+/* ---------- tags: cadastro único, comparação sem acento/maiúscula ---------- */
+const norm = (s) => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, ' ').trim();
+const sortTags = () => settings.tags.sort((a, b) => a.localeCompare(b, 'pt-BR'));
+const canonTag = (name) => settings.tags.find((t) => norm(t) === norm(name));
+function ensureTag(name) {
+  name = String(name).replace(/\s+/g, ' ').trim();
+  if (!name) return null;
+  let t = canonTag(name);
+  if (!t) { t = name; settings.tags.push(t); sortTags(); }
+  return t;
+}
+// garante que toda tag usada nas ideias esteja no cadastro, com a grafia padrão (une “Tráfego” e “trafego”)
+function reconcileTags() {
+  for (const i of items) i.tags = [...new Set(i.tags.map(ensureTag).filter(Boolean))];
+  const seen = new Set();
+  settings.tags = settings.tags.filter((t) => !seen.has(norm(t)) && seen.add(norm(t)));
+  sortTags();
 }
 function snapshot() { return { version: 2, items, settings }; }
 
@@ -205,12 +227,24 @@ function renderFilters() {
     .map(([k, v]) => `<button class="chip ${filter === k ? 'on' : ''}" data-f="${k}">${v}</button>`).join('');
 }
 
+function renderTagFilters() {
+  const box = $('tagFilters');
+  tagFilter = new Set([...tagFilter].filter((t) => settings.tags.includes(t)));
+  box.hidden = !settings.tags.length;
+  if (!settings.tags.length) return;
+  const count = (t) => items.filter((i) => (showArchived || !i.archived) && i.tags.includes(t)).length;
+  box.innerHTML = '<span class="lbl">Tags</span>' + settings.tags
+    .map((t) => `<button class="chip ${tagFilter.has(t) ? 'on' : ''}" data-tag="${esc(t)}">${esc(t)} <small>${count(t)}</small></button>`).join('')
+    + (tagFilter.size ? '<button class="chip clear" data-tag-clear="1">limpar</button>' : '');
+}
+
 function visibleItems(ignoreStatus) {
-  const q = query.trim().toLowerCase();
+  const q = norm(query);
   const list = items.filter((i) =>
     (showArchived || !i.archived) &&
     (ignoreStatus || filter === 'todas' || i.status === filter) &&
-    (!q || [i.title, i.desc, i.learned, i.next, i.tags.join(' '), i.entries.map((e) => e.text).join(' ')].join(' ').toLowerCase().includes(q)));
+    [...tagFilter].every((t) => i.tags.includes(t)) &&
+    (!q || norm([i.title, i.desc, i.learned, i.next, i.tags.join(' '), i.entries.map((e) => e.text).join(' ')].join(' ')).includes(q)));
   const cmp = {
     recent: (a, b) => b.updated - a.updated,
     profit: (a, b) => profit(b) - profit(a),
@@ -259,7 +293,7 @@ function renderBoard() {
   }
 }
 
-function render() { renderStats(); renderChart(); renderGoal(); renderFilters(); renderBoard(); }
+function render() { renderStats(); renderChart(); renderGoal(); renderFilters(); renderTagFilters(); renderBoard(); }
 
 /* ---------- diálogo ---------- */
 const dlg = $('dlg');
@@ -292,7 +326,8 @@ function openDialog(id) {
   $('fTitle').value = draft.title;
   $('fDesc').value = draft.desc;
   $('fStatus').value = draft.status;
-  $('fTags').value = draft.tags.join(', ');
+  $('tagIn').value = '';
+  renderTagPicker();
   $('fLearned').value = draft.learned;
   $('fNext').value = draft.next;
   $('eDate').value = today(); $('eText').value = '';
@@ -307,7 +342,6 @@ function readFields() {
   draft.title = $('fTitle').value.trim();
   draft.desc = $('fDesc').value.trim();
   draft.status = $('fStatus').value;
-  draft.tags = $('fTags').value.split(',').map((t) => t.trim()).filter(Boolean);
   draft.learned = $('fLearned').value.trim();
   draft.next = $('fNext').value.trim();
 }
@@ -354,6 +388,81 @@ dlg.addEventListener('click', (e) => {
   renderDraftLists();
 });
 
+/* seletor de tags dentro da ideia */
+function renderTagPicker() {
+  $('tagSel').innerHTML = draft.tags.length
+    ? draft.tags.map((t) => `<span class="tag sel">${esc(t)}<button type="button" class="x" data-rm-tag="${esc(t)}" title="Remover">×</button></span>`).join('')
+    : '<span class="muted small">Nenhuma tag.</span>';
+  const raw = $('tagIn').value.trim(), q = norm(raw);
+  const avail = settings.tags.filter((t) => !draft.tags.includes(t) && (!q || norm(t).includes(q)));
+  const exists = q && settings.tags.some((t) => norm(t) === q);
+  $('tagSug').innerHTML = avail.map((t) => `<button type="button" class="chip" data-add-tag="${esc(t)}">${esc(t)}</button>`).join('')
+    + (q && !exists ? `<button type="button" class="chip new" data-new-tag="1">+ Criar “${esc(raw)}”</button>` : '')
+    + (!avail.length && !q ? '<span class="muted small">Digite para criar a primeira tag.</span>' : '');
+}
+function addDraftTag(name) {
+  const t = ensureTag(name);
+  if (t && !draft.tags.includes(t)) draft.tags.push(t);
+  $('tagIn').value = '';
+  renderTagPicker();
+}
+$('tagIn').oninput = renderTagPicker;
+$('tagIn').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ',') {
+    e.preventDefault();
+    if ($('tagIn').value.trim()) addDraftTag($('tagIn').value);
+  } else if (e.key === 'Backspace' && !$('tagIn').value && draft.tags.length) {
+    draft.tags.pop(); renderTagPicker();
+  }
+});
+$('tagBox').addEventListener('click', (e) => {
+  const d = e.target.dataset;
+  if (d.addTag) addDraftTag(d.addTag);
+  else if (d.newTag) addDraftTag($('tagIn').value);
+  else if (d.rmTag) { draft.tags = draft.tags.filter((t) => t !== d.rmTag); renderTagPicker(); }
+});
+
+/* gerenciador de tags (renomear, unir, excluir) */
+const tagsDlg = $('tagsDlg');
+const tagCount = (t) => items.filter((i) => i.tags.includes(t)).length;
+function renderTagManager() {
+  $('tagList').innerHTML = settings.tags.length ? settings.tags.map((t) => `
+    <div class="li"><input class="tag-name" value="${esc(t)}" data-old="${esc(t)}" maxlength="40">
+      <span class="muted small">${tagCount(t)} ideia(s)</span>
+      <button class="x" data-del-tag="${esc(t)}" title="Excluir tag">🗑</button></div>`).join('')
+    : '<p class="muted small">Ainda não há tags. Crie dentro de uma ideia.</p>';
+}
+function replaceTag(oldName, newName) {   // newName null = remover
+  for (const i of items) {
+    if (!i.tags.includes(oldName)) continue;
+    i.tags = [...new Set(i.tags.map((t) => t === oldName ? newName : t).filter(Boolean))];
+    i.updated = Date.now();
+  }
+  settings.tags = settings.tags.filter((t) => t !== oldName);
+  if (newName && !settings.tags.includes(newName)) settings.tags.push(newName);
+  sortTags();
+  tagFilter.delete(oldName);
+  save(); render(); renderTagManager();
+}
+$('tagsBtn').onclick = () => { renderTagManager(); tagsDlg.showModal(); };
+$('tagsClose').onclick = () => tagsDlg.close();
+$('tagList').addEventListener('change', (e) => {
+  const inp = e.target.closest('.tag-name'); if (!inp) return;
+  const old = inp.dataset.old;
+  const novo = inp.value.replace(/\s+/g, ' ').trim();
+  if (!novo || novo === old) { inp.value = old; return; }
+  const outra = settings.tags.find((t) => t !== old && norm(t) === norm(novo));
+  if (outra) {
+    if (!confirm(`Já existe a tag “${outra}”. Unir “${old}” com ela? As ideias passam a usar “${outra}”.`)) { inp.value = old; return; }
+    replaceTag(old, outra);
+  } else replaceTag(old, novo);
+});
+$('tagList').addEventListener('click', (e) => {
+  const t = e.target.dataset.delTag; if (!t) return;
+  const n = tagCount(t);
+  if (confirm(`Excluir a tag “${t}”${n ? ` e removê-la de ${n} ideia(s)` : ''}?`)) replaceTag(t, null);
+});
+
 $('saveBtn').onclick = () => { if (commit()) dlg.close(); };
 $('cancelBtn').onclick = () => dlg.close();
 $('archBtn').onclick = () => { draft.archived = !draft.archived; if (commit()) dlg.close(); };
@@ -377,7 +486,14 @@ $('filters').onclick = (e) => {
 };
 $('search').oninput = (e) => { query = e.target.value; renderBoard(); };
 $('sort').onchange = (e) => { sortBy = e.target.value; renderBoard(); };
-$('showArchived').onchange = (e) => { showArchived = e.target.checked; renderBoard(); };
+$('showArchived').onchange = (e) => { showArchived = e.target.checked; renderTagFilters(); renderBoard(); };
+$('tagFilters').onclick = (e) => {
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.tagClear) tagFilter.clear();
+  else if (tagFilter.has(b.dataset.tag)) tagFilter.delete(b.dataset.tag);
+  else tagFilter.add(b.dataset.tag);
+  renderTagFilters(); renderBoard();
+};
 $('viewSeg').onclick = (e) => {
   const b = e.target.closest('[data-v]');
   if (!b) return;
